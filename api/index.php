@@ -1,9 +1,10 @@
-<?php
+<?php 
+require 'vendor/autoload.php'; // include Composer's autoloader
 
-use MongoDB\Driver\Manager;
-use MongoDB\Driver\Query;
+$client = new MongoDB\Client("mongodb+srv://cpr40517:Bx4QaOJfRFn0zIpR@cluster0.9de8pzv.mongodb.net/?retryWrites=true&w=majority");
+$database = $client->foodMap;
 
-// 建立 MongoDB 連接
-$manager = new Manager("mongodb+srv://cpr40517:Bx4QaOJfRFn0zIpR@cluster0.9de8pzv.mongodb.net/?retryWrites=true&w=majority");
+$result = $database->restaurant->insertOne( [ 'name' => 'Hinterland', 'brewery' => 'BrewDog' ] );
 
+echo "Inserted with Object ID '{$result->getInsertedId()}'";
 ?>
