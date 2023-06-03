@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/vendor/autoload.php';
+
 use MongoDB\Driver\Manager;
 use MongoDB\Driver\Query;
 // 建立 MongoDB 連接
