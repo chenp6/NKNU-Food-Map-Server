@@ -3,8 +3,11 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use MongoDB\Client;
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__. '/../');
+$dotenv->load();
+
 // Replace the placeholder with your Atlas connection string
-$uri = "mongodb+srv://cpr40517:Bx4QaOJfRFn0zIpR@cluster0.9de8pzv.mongodb.net/?retryWrites=true&w=majority";
+$uri = $_ENV["MONGO_URI"];
 
 // Create a new client and connect to the server
 $client = new MongoDB\Client($uri);
@@ -16,25 +19,5 @@ try {
 } catch (Exception $e) {
     printf($e->getMessage());
 }
-
-
-$collection = $client->test->users;
-
-$insertManyResult = $collection->insertMany([
-    [
-        'username' => 'admin',
-        'email' => 'admin@example.com',
-        'name' => 'Admin User',
-    ],
-    [
-        'username' => 'test',
-        'email' => 'test@example.com',
-        'name' => 'Test User',
-    ],
-]);
-
-printf("Inserted %d document(s)\n", $insertManyResult->getInsertedCount());
-
-var_dump($insertManyResult->getInsertedIds());
 
 ?>
