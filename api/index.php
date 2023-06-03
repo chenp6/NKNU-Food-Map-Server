@@ -1,18 +1,21 @@
 <?php
 require_once '/var/task/user/vendor/autoload.php';
 
-use MongoDB\Driver\Manager;
-use MongoDB\Driver\Query;
-// 建立 MongoDB 連接
-$manager = new Manager("mongodb+srv://cpr40517:Bx4QaOJfRFn0zIpR@cluster0.9de8pzv.mongodb.net/?retryWrites=true&w=majority");
-var_dump($manager);
+use MongoDB\Client;
 
-$filter = ['name' => 'Hinterland'];
+// Replace the placeholder with your Atlas connection string
+$uri = "mongodb+srv://cpr40517:Bx4QaOJfRFn0zIpR@cluster0.9de8pzv.mongodb.net/?retryWrites=true&w=majority";
 
-$query = new MongoDB\Driver\Query($filter);
-$cursor = $manager->executeQuery('foodMap.restaurant', $query); // $mongo contains the connection object to MongoDB
-foreach ($cursor as $document) {
-    var_dump($document);
+// Create a new client and connect to the server
+$client = new MongoDB\Client($uri);
+
+try {
+    // Send a ping to confirm a successful connection
+    $client->selectDatabase('admin')->command(['ping' => 1]);
+    echo "Pinged your deployment. You successfully connected to MongoDB!\n";
+} catch (Exception $e) {
+    printf($e->getMessage());
 }
+
 
 ?>
