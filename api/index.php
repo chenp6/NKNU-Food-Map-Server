@@ -1,10 +1,9 @@
 <?php
-// MongoDB 伺服器設定
-$dbhost = 'mongodb+srv://test:p0hFujXoDmiZovnY@cluster0.9de8pzv.mongodb.net/?retryWrites=true&w=majority';
 
-$dbname = 'gtwang_demo';
+use MongoDB\Driver\Manager;
+use MongoDB\Driver\Query;
 
-// 連線到 MongoDB 伺服器
-$db = new MongoClient($dbhost);
+// 建立 MongoDB 連接
+$manager = new Manager("mongodb+srv://cpr40517:Bx4QaOJfRFn0zIpR@cluster0.9de8pzv.mongodb.net/?retryWrites=true&w=majority");
 
 ?>
