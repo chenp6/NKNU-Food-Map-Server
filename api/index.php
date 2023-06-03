@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/vendor/autoload.php';
+require_once '/var/task/user/vendor/autoload.php';
 
 use MongoDB\Driver\Manager;
 use MongoDB\Driver\Query;
