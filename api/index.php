@@ -1,5 +1,5 @@
 <?php
-require_once '/var/task/user/vendor/autoload.php';
+require_once '../vendor/autoload.php';
 
 use MongoDB\Client;
 
