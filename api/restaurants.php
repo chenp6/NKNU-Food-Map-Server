@@ -16,9 +16,20 @@ $uri = $_ENV["MONGO_URI"];
 $client = new MongoDB\Client($uri);
 
 
-$places = $_GET["place"];
-$foods = $_GET["food"];
-$queryString = $_GET["query"];
+$places = $foods = [];
+$queryString = '';
+
+if(isset($_GET["place"])){
+    $places = $_GET["place"];
+}
+
+if(isset($_GET["food"])){
+    $foods = $_GET["food"];
+}
+
+if(isset($_GET["query"])){
+    $queryString = $_GET["query"];
+}
 
 try {
     // Send a ping to confirm a successful connection
