@@ -7,7 +7,6 @@ use MongoDB\Client;
 header('Content-Type: text/html; charset=utf-8');
 mb_internal_encoding('UTF-8');
 
-
 // Replace the placeholder with your Atlas connection string
 $uri = $_ENV["MONGO_URI"];
 
@@ -35,18 +34,24 @@ try {
     // Send a ping to confirm a successful connection
     $collection = $client->foodMap->restaurant;
     $restaurants = [];
-    if ($queryString == '' && count($places)==0 && count($foods)==0) {
-        $restaurants =  $collection->find([]);
-    } else {
-        $restaurants =  $collection->find([
-            '$and' =>
-            [
-                ["tags" => ['$regex' => $queryString]],
-                ["tags" => ['$in' => $places]],
-                ["tags" => ['$in' => $foods]]
-            ]
-        ]);
+
+    $queryArr = [];
+
+    if (count($places)!==0){
+        array_push($queryArr,["tags" => ['$in' => $places]]);
+    } 
+    
+    if(count($foods)!==0) {
+        array_push($queryArr,["tags" => ['$in' => $foods]]);
     }
+    if($queryArr !=='') {
+        array_push($queryArr,["tags" => ['$regex' => $queryString]]);
+    }
+
+    $restaurants =  $collection->find([
+        '$and' =>$queryArr
+    ]);
+    
 
     $sendResult = [];
     foreach ($restaurants as $restaurant) {
@@ -68,4 +73,5 @@ try {
 } catch (Exception $e) {
     printf($e->getMessage());
 }
+
 ?>
