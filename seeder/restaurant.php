@@ -15,7 +15,7 @@ $client = new MongoDB\Client($uri);
 
 try {
     // Send a ping to confirm a successful connection
-    $collection = $client->foodMap->testing;
+    $collection = $client->foodMap->restaurant;
     
     $arr = array (
         0 => 
