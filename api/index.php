@@ -4,6 +4,10 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use MongoDB\Client;
 
+header('Content-Type: text/html; charset=utf-8');
+mb_internal_encoding('UTF-8');
+
+
 
 // Replace the placeholder with your Atlas connection string
 $uri = $_ENV["MONGO_URI"];
@@ -11,12 +15,13 @@ $uri = $_ENV["MONGO_URI"];
 // Create a new client and connect to the server
 $client = new MongoDB\Client($uri);
 
-$places = $_GET["place"];
-$foods = $_GET["food"];
-$queryString = $_GET["query"];
-// $places = ["燕巢"];
-// $foods = ["晚餐"];
-// $queryString = "燕巢";
+
+// $places = $_GET["place"];
+// $foods = $_GET["food"];
+// $queryString = $_GET["query"];
+$places = ["燕巢"];
+$foods = ["晚餐"];
+$queryString = "燕巢";
 try {
     // Send a ping to confirm a successful connection
     $collection = $client->foodMap->restaurant;
@@ -40,14 +45,14 @@ try {
             'holiday' => $restaurant->holiday
         ));
     }
-    echo json_encode($sendResult);
+    // $sendResult = mb_convert_encoding($sendResult, 'UTF-8',);
+    // $json = json_encode($data);
+
+    echo json_encode($sendResult, JSON_UNESCAPED_UNICODE);
     // var_dump($restaurants);
     
 } catch (Exception $e) {
     printf($e->getMessage());
 }
-
-
-
 
 ?>
