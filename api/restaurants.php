@@ -35,7 +35,7 @@ try {
     // Send a ping to confirm a successful connection
     $collection = $client->foodMap->restaurant;
     $restaurants = [];
-    if ($queryString == '' && count($foods) && count($query)) {
+    if ($queryString == '' && count($places)==0 && count($foods)==0) {
         $restaurants =  $collection->find([]);
     } else {
         $restaurants =  $collection->find([
