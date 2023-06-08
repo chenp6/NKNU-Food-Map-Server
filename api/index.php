@@ -12,17 +12,19 @@ $uri = $_ENV["MONGO_URI"];
 $client = new MongoDB\Client($uri);
 
 
-// $places = $_GET["placeTags"];
-// $foods = $_GET["foodTags"];
-$places = ["燕巢"];
-$foods = ["晚餐"];
+$places = $_GET["placeTags"];
+$foods = $_GET["foodTags"];
+$queryString = $_GET["queryString"];
+// $places = ["燕巢"];
+// $foods = ["晚餐"];
+// $queryString = "大社";
 try {
     // Send a ping to confirm a successful connection
-    $collection = $client->foodMap->restaurant;
+    $collection = $client->foodMap->testing;
 
    $result =  $collection -> find(['$and' =>
         [
-            [ "tags" => ['$regex'=> "字串" ]],
+            [ "tags" => ['$regex'=> $queryString]],
             [ "tags" => ['$in'=> $places ]],
             [ "tags"=> ['$in'=> $foods ]]
         ]
