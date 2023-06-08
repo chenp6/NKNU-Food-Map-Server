@@ -4,8 +4,6 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use MongoDB\Client;
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__. '/../');
-$dotenv->load();
 
 // Replace the placeholder with your Atlas connection string
 $uri = $_ENV["MONGO_URI"];
