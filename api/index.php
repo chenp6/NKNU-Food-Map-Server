@@ -11,16 +11,15 @@ $uri = $_ENV["MONGO_URI"];
 // Create a new client and connect to the server
 $client = new MongoDB\Client($uri);
 
-
-$places = $_GET["placeTags"];
-$foods = $_GET["foodTags"];
-$queryString = $_GET["queryString"];
+$places = $_GET["place"];
+$foods = $_GET["food"];
+$queryString = $_GET["query"];
 // $places = ["燕巢"];
 // $foods = ["晚餐"];
-// $queryString = "大社";
+// $queryString = "燕巢";
 try {
     // Send a ping to confirm a successful connection
-    $collection = $client->foodMap->testing;
+    $collection = $client->foodMap->restaurant;
 
    $result =  $collection -> find(['$and' =>
         [
