@@ -21,7 +21,7 @@ try {
     // Send a ping to confirm a successful connection
     $collection = $client->foodMap->restaurant;
 
-   $result =  $collection -> find(['$and' =>
+   $restaurants =  $collection -> find(['$and' =>
         [
             [ "tags" => ['$regex'=> $queryString]],
             [ "tags" => ['$in'=> $places ]],
@@ -29,10 +29,20 @@ try {
         ]
     ]);
 
-
-    foreach ($result as $document) {
-        var_dump($document);
-    }  
+    $sendResult = [];
+    foreach ($restaurants as $restaurant) {
+        array_push($sendResult,array(
+            "id" => $restaurant->id,
+            "name" => $restaurant->name,
+            "image" => $restaurant->image,
+            'website' => $restaurant->website,
+            'openingTime' => $restaurant->openingTime,
+            'holiday' => $restaurant->holiday
+        ));
+    }
+    echo json_encode($sendResult);
+    // var_dump($restaurants);
+    
 } catch (Exception $e) {
     printf($e->getMessage());
 }
