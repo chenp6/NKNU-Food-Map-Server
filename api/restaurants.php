@@ -5,6 +5,10 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use MongoDB\Client;
 
 header('Content-Type: text/html; charset=utf-8');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST');
+header("Access-Control-Allow-Headers: X-Requested-With");
+
 mb_internal_encoding('UTF-8');
 
 // Replace the placeholder with your Atlas connection string
