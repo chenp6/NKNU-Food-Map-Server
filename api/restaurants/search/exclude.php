@@ -42,19 +42,25 @@ try {
     $queryArr = [];
 
     if (count($places)!==0){
-        array_push($queryArr,["tags" => ['$in' => $places]]);
+        array_push($queryArr, ["tags" => ['$not' =>['$in' => $places]]]);
     } 
     
     if(count($foods)!==0) {
-        array_push($queryArr,["tags" => ['$in' => $foods]]);
-    }
-    if($queryArr !=='') {
-        array_push($queryArr,["tags" => ['$regex' => $queryString]]);
+        array_push($queryArr,["tags" => ['$not' =>['$in' => $foods]]]);
     }
 
-    $restaurants =  $collection->find([
-        '$nor' =>$queryArr
-    ]);
+    if($queryString!=='') {
+        array_push($queryArr,["tags" => ['$not' => ['$regex' => $queryString]]]);
+    }
+    
+    if(count($queryArr)!==0){
+        $restaurants =  $collection->find([
+            '$and' => $queryArr
+        ]);
+    }else{
+        $restaurants =  $collection->find([]);
+    }
+
     
 
     $sendResult = [];
@@ -77,5 +83,3 @@ try {
 } catch (Exception $e) {
     printf($e->getMessage());
 }
-
-?>
