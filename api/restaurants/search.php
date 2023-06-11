@@ -48,9 +48,10 @@ try {
     if(count($foods)!==0) {
         array_push($queryArr,["tags" => ['$in' => $foods]]);
     }
-    if($queryArr !=='') {
-        array_push($queryArr,["tags" => ['$regex' => $queryString]]);
-    }
+    
+    
+    array_push($queryArr,["tags" => ['$regex' => $queryString]]);
+    
 
     $restaurants =  $collection->find([
         '$and' =>$queryArr
